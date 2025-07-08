@@ -13,25 +13,62 @@ import {
   TableRow,
   TableCell,
 } from '@/components/ui/table.jsx'
+import { Input } from '@/components/ui/input.jsx'
+import { Button } from '@/components/ui/button.jsx'
 
 function Sales() {
+
+  const [dateRange, setDateRange] = useState({
+    startDate: '',
+    endDate: ''
+  })
 
   const [sales, setSales] = useState([])
 
   const fetchSales = async () => {
     const data = await getSales()
-    setSales(data)
+    if (dateRange.startDate && dateRange.endDate) {
+      const filteredSales = data.filter(sale => {
+        const saleDate = new Date(sale.date)
+        const startDate = new Date(dateRange.startDate)
+        const endDate = new Date(dateRange.endDate)
+        return saleDate >= startDate && saleDate <= endDate
+      })
+      setSales(filteredSales.sort((a, b) => new Date(a.date) - new Date(b.date)))
+      return
+    }
+    setSales(data.sort((a, b) => new Date(a.date) - new Date(b.date)))
   }
 
   useEffect(() => {
     fetchSales()
-  }, [])
+  }, [dateRange])
 
   return (
     <div className="p-5">
       <Card>
-        <CardHeader>
+        <CardHeader className="flex justify-between items-center">
           <CardTitle className="text-2xl">Sales</CardTitle>
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-stone-500 mr-3">Filter:</div>
+            <Input
+                id="startDate"
+                type="date"
+                onChange={(e) => setDateRange({ ...dateRange, startDate: e.target.value })}
+             />
+             <div className="mx-2">to</div>
+             <Input
+                id="endDate"
+                type="date"
+                onChange={(e) => setDateRange({ ...dateRange, endDate: e.target.value })}
+             />
+             <Button
+               onClick={() => setDateRange({ startDate: '', endDate: '' })}
+               className="ml-3"
+             >
+               Clear
+             </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <Table>

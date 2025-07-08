@@ -12,7 +12,7 @@ function Navbar() {
           <div className="font-semibold italic text-stone-300">SalesTracker</div>
         </div>
       </div>
-      <nav className="flex items-end mx-auto text-sm">
+      <nav className="flex items-end mx-auto text-sm font-bold">
         <NavLink className="mr-6 transition hover:text-stone-300" to="/">Dashboard</NavLink>
         <NavLink className="mr-6 transition hover:text-stone-300" to="/sales">Sales</NavLink>
         <NavLink className="mr-6 transition hover:text-stone-300" to="/products">Products</NavLink>
@@ -20,7 +20,7 @@ function Navbar() {
         <NavLink className="mr-6 transition hover:text-stone-300" to="/salespersons">Sales Persons</NavLink>
       </nav>
       <div className="flex justify-end items-center">
-        <Button className="bg-green-600 hover:bg-green-700 text-white">
+        <Button className="bg-green-600 hover:bg-green-700 text-white mr-3">
           <NavLink to="/sales/new">New Sale</NavLink>
         </Button>
       </div>
