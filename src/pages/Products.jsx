@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getProducts } from '../services/products.js'
+import { getProducts } from '@/services/products.js'
 import {
   Card,
   CardHeader,

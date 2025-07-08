@@ -1,28 +1,13 @@
 import { useState, useEffect } from 'react'
-import { getSales } from '../services/sales.js'
+import { getSales } from '@/services/sales.js'
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
 } from '@/components/ui/card.jsx'
-import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableRow,
-  TableCell,
-} from '@/components/ui/table.jsx'
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from 'recharts'
+import SalesChart from '@/components/SalesChart.jsx'
+import SalesTable from '@/components/SalesTable'
 
 function Dashboard() {
 
@@ -83,47 +68,10 @@ function Dashboard() {
           </div>
         </CardContent>
       </Card>
-      <Card className="mt-5">
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={saleData.salesByPerson}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="commissionTotal" name="Commission" fill="#0284c7" />
-              <Bar dataKey="totalSales" name="Sales" fill="#16a34a" />
-            </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-      <Card className="mt-5">
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableCell className="font-bold">Sales Person</TableCell>    
-                <TableCell className="font-bold text-right">Number of Sales</TableCell>
-                <TableCell className="font-bold text-right">Percentage of Total Sales</TableCell>
-                <TableCell className="font-bold text-right">Sales</TableCell>
-                <TableCell className="font-bold text-right">Commission</TableCell>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {saleData.salesByPerson?.map((person) => (
-                <TableRow key={person.salesPersonId}>
-                  <TableCell>{person.name}</TableCell>
-                  <TableCell className="text-right">{person.numberOfSales}</TableCell>
-                  <TableCell className="text-right">{person.percentageOfSales}%</TableCell>
-                  <TableCell className="text-right">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(person.totalSales)}</TableCell>
-                  <TableCell className="text-right">{new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(person.commissionTotal)}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
+
+      <SalesChart sales={saleData.salesByPerson} />
+
+      <SalesTable sales={saleData.salesByPerson} />
     </div>
   )
 }

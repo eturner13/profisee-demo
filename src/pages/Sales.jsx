@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { getSales } from '../services/sales.js'
+import { getSales } from '@/services/sales.js'
 import {
   Card,
   CardHeader,

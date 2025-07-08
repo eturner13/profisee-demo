@@ -12,10 +12,3 @@ export const createNewSale = async (sale) => {
     const data = await response.json();
     return data;
 }
-
-export const getSalesData = (sales) => {
-    return {
-
-    };
-}
-

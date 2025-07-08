@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react'
-import { createNewSale } from '../services/sales.js'
+import { useNavigate } from 'react-router'
+import { createNewSale } from '@/services/sales.js'
+import { getCustomers } from '@/services/customers.js'
+import { getProducts } from '@/services/products.js'
+import { getSalesPersons } from '@/services/salespersons.js'
 import {
   Card,
   CardHeader,
@@ -15,10 +19,7 @@ import {
   SelectContent,
   SelectItem,
 } from '@/components/ui/select.jsx'
-import { useNavigate } from 'react-router'
-import { getCustomers } from '../services/customers.js'
-import { getProducts } from '../services/products.js'
-import { getSalesPersons } from '../services/salespersons.js'
+
 
 function NewSale() {
 
@@ -33,11 +34,11 @@ function NewSale() {
     }
     setSale({
       ...sale,
-      id: 99,
+      id: 99, // This shouldn't be hardcoded in a real app, but for demo purposes it's fine
       date: new Date().toISOString(),
     });
     const data = await createNewSale(sale)
-    navigate('/sales')
+    navigate(-1)
   }
 
   const [customers, setCustomers] = useState([])
@@ -141,7 +142,7 @@ function NewSale() {
               <Button
                 variant="outline"
                 onClick={() => {
-                  navigate('/salespersons')
+                  navigate(-1)
                 }}
               >
                 Cancel
