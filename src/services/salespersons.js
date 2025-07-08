@@ -4,6 +4,17 @@ export const getSalesPersons = (async () => {
     return data;
 })
 
-export const updateSalesPerson = (async (id, salesperson) => {
-    console.log('todo');
+export const getSalesPerson = (async (id) => {
+    const response = await fetch('https://profiseebespokedbikesapi.azurewebsites.net/api/SalesPersons/' + id);
+    const data = await response.json();
+    return data;
+})
+
+export const updateSalesPerson = (async (salesperson) => {
+    const response = await fetch('https://profiseebespokedbikesapi.azurewebsites.net/api/SalesPersons/' + salesperson.id, {
+        method: 'PUT',
+        body: JSON.stringify(salesperson)
+    });
+    const data = await response.json();
+    return data;
 })
